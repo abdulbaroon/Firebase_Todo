@@ -16,6 +16,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Email } from '@mui/icons-material';
 import { signInUser } from '@/config/firebase';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 export default function SignIn() {
   const navigate = useRouter();
@@ -30,9 +31,11 @@ export default function SignIn() {
       const userCredential = await signInUser(email, password);
 
       if (userCredential) {
-        navigate.push('/profile');
+        toast.success('SignIn Success');
+        navigate.push('/todo');
       }
     } catch (error: any) {
+    toast.error('SignIn failed'+error.message);
       console.log('User Sign In Failed', error.message);
     }
   };

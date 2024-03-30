@@ -17,6 +17,7 @@ import { Email } from '@mui/icons-material';
 import { signUpUser } from '@/config/firebase';
 import { useRouter } from 'next/navigation';
 import { updateProfile } from 'firebase/auth';
+import { toast } from 'sonner';
 
 export default function SignIn() {
   const navigate = useRouter();
@@ -35,10 +36,12 @@ export default function SignIn() {
         updateProfile(userCredential.user, {
             displayName: name,
           });
-        navigate.push('/profile');
+        navigate.push('/todo');
+        toast.success('Account Created');
       }
     } catch (error: any) {
-      console.log('User Sign Up Failed', error.message);
+      console.log('Failed to Create Account', error.message)
+      toast.error('Failed to Create Account'+ error.message)
     }
   };
 

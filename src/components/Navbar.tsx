@@ -33,7 +33,7 @@ function Navbar() {
     };
 
     const pages = [
-        { page: 'Products', link: '/products' },
+        { page: 'Products', link: '/todo' },
         { page: 'Pricing', link: '/pricing' },
         { page: 'Blog', link: '/blog' }
     ];
@@ -149,7 +149,7 @@ function Navbar() {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Login" src="/static/images/avatar/2.jpg" />
+                                <Avatar alt={currentUser?.displayName as string} src="/static/images/avatar/2.jpg" />
                             </IconButton>
                         </Tooltip>
                         <Menu

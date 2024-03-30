@@ -3,6 +3,7 @@ import { User } from "firebase/auth";
 import { createContext, useState, useEffect, ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { SignOutUser, userStateListener } from "@/config/firebase";
+import { toast } from "sonner";
 
   interface Props {
     children?: ReactNode
@@ -33,6 +34,7 @@ import { SignOutUser, userStateListener } from "@/config/firebase";
     const signOut = () => {
       SignOutUser()
       setCurrentUser(null)
+      toast.success("User Logout")
       navigate.push('/')
     }
 
