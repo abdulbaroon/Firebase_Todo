@@ -16,7 +16,7 @@ const TodoForm = () => {
 
     const [title, setTitle] = useState("");
     const { currentUser } = useContext(AuthContext)
-    const [value, setValue] = useState(null);
+    const [value, setValue] = useState();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value);
@@ -31,7 +31,7 @@ const TodoForm = () => {
             const todo = {
                 title,
                 done: false,
-                due_date: dayjs(value).format('DD/MM/YYYY')||dayjs(new Date())?.toISOString() ,
+                due_date:  dayjs(new Date())?.toISOString() ,
                 current_date: dayjs(new Date())?.toISOString()
 
             };
@@ -47,7 +47,7 @@ const TodoForm = () => {
         <div className="flex justify-center mt-10 items-center gap-3">
             <TextField id="outlined-basic" label="Task Name" variant="outlined"  sx={{}} onChange={handleChange} />
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker label="Select Date" value={value} onChange={(newValue) => setValue(newValue)} />
+                <DatePicker label="Select Date"/>
             </LocalizationProvider>
             <Button
                 type="submit"
