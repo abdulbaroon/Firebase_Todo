@@ -16,23 +16,22 @@ const TodoList = () => {
     const { currentUser } = useContext(AuthContext)
 
     useEffect(() => {
-        console.log(`/todos-${currentUser ? currentUser.uid : ""}`, currentUser)
-        const todoRef = ref(db, `/todos-${currentUser ? currentUser.uid : ""}`);
-
-        onValue(todoRef, (snapshot) => {
-            const todos = snapshot.val();
-            const newTodoList: Todo[] = [];
-            console.log(todos, "s")
-            for (let id in todos) {
-                newTodoList.push({ id, ...todos[id] });
-            }
-
-            setTodoList(newTodoList);
-        });
+        if(currentUser){
+            const todoRef = ref(db, `/todos-${currentUser ? currentUser.uid : ""}`);
+            onValue(todoRef, (snapshot) => {
+                const todos = snapshot.val();
+                const newTodoList: Todo[] = [];
+                for (let id in todos) {
+                    newTodoList.push({ id, ...todos[id] });
+                }
+    
+                setTodoList(newTodoList);
+            });
+        }
     }, [db, currentUser]);
 
     return (
-        <div className="m-10">
+        <div className=" m-0 md:m-10">
             <TableContainer component={Paper} >
                 <Table>
                     <TableHead>
@@ -40,7 +39,7 @@ const TodoList = () => {
                             <TableCell component={"th"}>
                                 <Typography fontWeight={"bold"}>ID</Typography>
                             </TableCell>
-                            <TableCell component={"th"}>
+                            <TableCell component={"th"} sx={{width:"35%"}}>
                                 <Typography fontWeight={"bold"}>Name</Typography>
                             </TableCell>
                             <TableCell component={"th"}>
@@ -52,15 +51,15 @@ const TodoList = () => {
                             <TableCell component={"th"}>
                                 <Typography fontWeight={"bold"}>status</Typography>
                             </TableCell>
-                            <TableCell component={"th"}>
+                            <TableCell component={"th"} sx={{width:"20%"}}>
                                 <Typography fontWeight={"bold"}>Actions</Typography>
                             </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {todoList?.map((todo) => (
+                        {todoList?.map((todo,index) => (
                             <TableRow key={todo.id}>
-                                <TodoRow todo={todo} />
+                                <TodoRow todo={todo} indexs={index} />
                             </TableRow>
                         ))}
                     </TableBody>
@@ -70,7 +69,7 @@ const TodoList = () => {
     );
 };
 
-const TodoRow = ({ todo }: { todo: Todo }) => {
+const TodoRow = ({ todo , indexs }: { todo: Todo , indexs:number}) => {
     const [editMode, setEditMode] = useState(false);
     const [tittle, setTitle] = useState(todo.title);
     const [createDate, setCreateDate] = useState(todo.current_date);
@@ -158,7 +157,7 @@ const TodoRow = ({ todo }: { todo: Todo }) => {
     return (
         <>
             <TableCell suppressContentEditableWarning>
-                {todo.id}
+                {indexs +1 }
             </TableCell>
             <TableCell contentEditable={editMode} suppressContentEditableWarning id={todo.id} onInput={handleTitle}>
                 {tittle}
@@ -170,7 +169,7 @@ const TodoRow = ({ todo }: { todo: Todo }) => {
                 {dayjs(dueDate).format('DD/MM/YYYY')}
             </TableCell>
             <TableCell suppressContentEditableWarning>
-                <div className={`border ${todo.done ? "bg-green-500" : "bg-red-400"} text-center rounded-lg`} >
+                <div className={`border w-28 ${todo.done ? "bg-green-500" : "bg-red-400"} text-center rounded-lg`} >
                     <p className="text-base TEXT-">{`${todo.done ? "Completed" : "Incomplete"}`} </p>
                 </div>
             </TableCell>

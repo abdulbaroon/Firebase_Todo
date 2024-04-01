@@ -14,10 +14,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Email } from '@mui/icons-material';
-import { signUpUser } from '@/config/firebase';
+import { GithubAuth, GoogleAuth, signUpUser } from '@/config/firebase';
 import { useRouter } from 'next/navigation';
 import { updateProfile } from 'firebase/auth';
 import { toast } from 'sonner';
+import { Github, Google } from '@/components/assets';
+import Image from 'next/image';
 
 export default function SignIn() {
   const navigate = useRouter();
@@ -44,6 +46,36 @@ export default function SignIn() {
       toast.error('Failed to Create Account'+ error.message)
     }
   };
+
+  const handleGoogle=async()=>{
+    try {
+      // Send the email and password to firebase
+      const userCredential = await GoogleAuth();
+
+      if (userCredential) {
+        toast.success('SignIn Success');
+        navigate.push('/todo');
+      }
+    } catch (error: any) {
+      toast.error('SignIn failed' + error.message);
+      console.log('User Sign In Failed', error.message);
+    }
+  }
+
+  const handleGithub=async()=>{
+    try {
+      // Send the email and password to firebase
+      const userCredential = await GithubAuth();
+
+      if (userCredential) {
+        navigate.push('/todo');
+        toast.success('SignIn Success');
+      }
+    } catch (error: any) {
+      toast.error('SignIn failed' + error.message);
+      console.log('User Sign In Failed', error.message);
+    }
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -93,6 +125,22 @@ export default function SignIn() {
             id="password"
             autoComplete="current-password"
           />
+          <Box className='flex justify-between w-full mt-3 gap-2'>
+            <Box className="w-1/2 border flex gap-2 p-3  hover:bg-slate-100" 
+            onClick={handleGoogle} >
+              <Image src={Google} alt='he' height={30} width={30}/>
+            <Typography component="h6" variant="h6">
+              Google
+            </Typography>
+            </Box>
+            <Box className="w-1/2 border  flex gap-2 p-3   rounded-md hover:bg-slate-100 "
+            onClick={handleGithub}>
+            <Image src={Github} alt='he' height={30} width={30}/>
+            <Typography component="h6" variant="h6">
+              Github
+            </Typography>
+            </Box>
+          </Box>
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"

@@ -33,9 +33,7 @@ function Navbar() {
     };
 
     const pages = [
-        { page: 'Products', link: '/todo' },
-        { page: 'Pricing', link: '/pricing' },
-        { page: 'Blog', link: '/blog' }
+        { page: 'Todos', link: '/todo' },
     ];
 
     const settings = currentUser ? [
