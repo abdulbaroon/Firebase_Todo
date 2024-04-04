@@ -30,7 +30,7 @@ export const signUpUser = async (
     email: string, 
     password: string
   ) => {
-    if (!email && !password) return;
+    if (!email && !password) return;  
   
     return await createUserWithEmailAndPassword(auth, email, password)
   }

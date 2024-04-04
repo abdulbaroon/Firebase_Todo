@@ -34,6 +34,7 @@ export default function SignIn() {
 
       if (userCredential) {
         toast.success('SignIn Success');
+        sessionStorage.setItem("user","true" )
         navigate.push('/todo');
       }
     } catch (error: any) {
@@ -47,6 +48,7 @@ export default function SignIn() {
       const userCredential = await GoogleAuth();
 
       if (userCredential) {
+        sessionStorage.setItem("user","true" )
         toast.success('SignIn Success');
         navigate.push('/todo');
       }
@@ -63,10 +65,12 @@ export default function SignIn() {
 
       if (userCredential) {
         navigate.push('/todo');
+        sessionStorage.setItem("user","true")
         toast.success('SignIn Success');
       }
     } catch (error: any) {
       toast.error('SignIn failed' + error.message);
+      sessionStorage.setItem("user","true" )
       console.log('User Sign In Failed', error.message);
     }
   }

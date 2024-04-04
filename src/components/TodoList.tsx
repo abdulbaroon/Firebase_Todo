@@ -9,13 +9,19 @@ import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import { AuthContext } from "@/context/auth-context";
 import dayjs from "dayjs";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const TodoList = () => {
     const db = getDatabase(app);
     const [todoList, setTodoList] = useState<Todo[]>([]);
     const { currentUser } = useContext(AuthContext)
+    const router = useRouter()
+    const sessionStore=sessionStorage.getItem("user")
+    if(!currentUser && !sessionStore){
+       router.push("/Login")
+    }
 
-    useEffect(() => {
+    useEffect(() => { 
         if(currentUser){
             const todoRef = ref(db, `/todos-${currentUser ? currentUser.uid : ""}`);
             onValue(todoRef, (snapshot) => {

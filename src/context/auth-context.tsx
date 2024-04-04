@@ -13,7 +13,7 @@ import { toast } from "sonner";
     // "User" comes from firebase auth-public.d.ts
     currentUser: {} as User | null,
     setCurrentUser: (_user:User) => {},
-    signOut: () => {}
+    signOut: () => {},
   });
 
   export const AuthProvider = ({ children }: Props) => {
@@ -24,16 +24,27 @@ import { toast } from "sonner";
       const unsubscribe = userStateListener((user) => {
         if (user) {
           setCurrentUser(user)
+         sessionStorage.setItem("avatar",user.photoURL as string)
+         sessionStorage.setItem("user","true" )
+        }
+        else{
+          sessionStorage.removeItem("avatar")
+      sessionStorage.removeItem("user")
         }
       });
       return unsubscribe
-    }, [setCurrentUser]);
+    }, []);
+
+    
+    
 
     // As soon as setting the current user to null, 
     // the user will be redirected to the home page. 
     const signOut = () => {
       SignOutUser()
       setCurrentUser(null)
+      sessionStorage.removeItem("avatar")
+      sessionStorage.removeItem("user")
       toast.success("User Logout")
       navigate.push('/')
     }
@@ -41,7 +52,7 @@ import { toast } from "sonner";
     const value = {
       currentUser, 
       setCurrentUser,
-      signOut
+      signOut,
     }
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

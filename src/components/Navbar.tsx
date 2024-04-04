@@ -14,12 +14,21 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { AuthContext } from '@/context/auth-context';
+import Link from 'next/link';
 
 
 function Navbar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const { currentUser, signOut } = React.useContext(AuthContext)
+    const [navAvtar,setNavAvtar] = React.useState<string >(currentUser?.photoURL || "");
+    const sessionAvtar  = sessionStorage.getItem("avatar")
+    console.log(sessionAvtar,"sd")
+    React.useEffect(()=>{
+        if(sessionAvtar){
+            setNavAvtar(sessionAvtar)
+        }
+    },[sessionAvtar])
     
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -29,6 +38,7 @@ function Navbar() {
     };
     const handleSignOut = () => {
         signOut(); 
+        sessionStorage.removeItem("user")
         handleCloseUserMenu(); 
     };
 
@@ -53,6 +63,7 @@ function Navbar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+    
 
     return (
         <AppBar position="static">
@@ -108,7 +119,7 @@ function Navbar() {
                         >
                             {pages?.map((page) => (
                                 <MenuItem key={page?.page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center" component="a" href={page.link}>{page?.page}</Typography>
+                                    <Typography textAlign="center" component={Link} href={page.link}>{page?.page}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -139,7 +150,7 @@ function Navbar() {
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                <Typography textAlign="center" component="a" href={page.link}>{page.page}</Typography>
+                                <Typography textAlign="center" component={Link} href={page.link}>{page.page}</Typography>
                             </Button>
                         ))}
                     </Box>
@@ -147,7 +158,7 @@ function Navbar() {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt={currentUser?.displayName as string} src="/static/images/avatar/2.jpg" />
+                                <Avatar alt={currentUser?.displayName as string} src={navAvtar as string} />
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -166,9 +177,9 @@ function Navbar() {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
+                            {settings && settings?.map((setting) => (
                                 <MenuItem key={setting.page} onClick={setting.action || handleCloseUserMenu}>
-                                    <Typography textAlign="center" component="a" href={setting.link}>{setting.page}</Typography>
+                                    <Link href={setting.link || "#"}>{setting.page}</Link>
                                 </MenuItem>
                             ))}
                         </Menu>

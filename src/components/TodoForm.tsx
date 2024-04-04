@@ -9,6 +9,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from "dayjs";
 import { enqueueSnackbar } from "notistack";
 import { toast } from "sonner";
+import PushNotification from "./PushNotification";
 
 const TodoForm = () => {
     const db = getDatabase(app);
@@ -37,6 +38,7 @@ const TodoForm = () => {
             event.currentTarget.reset()
             resetDatePicker();
             toast.success('Todo Created');
+            PushNotification("todo")
 
         }
 
