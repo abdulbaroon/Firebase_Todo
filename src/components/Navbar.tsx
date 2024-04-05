@@ -205,9 +205,10 @@ function Navbar() {
                         <Menu open={notificationOpen} anchorEl={anchorElNotifications} onClose={handleCloseNotifications}>
                             <Box sx={{ mt: 2, height: "50vh", p: 1, display: "flex", flexDirection: "column", maxWidth: "300px", minWidth: "300px", overflowY: "scroll" }}>
                                 <Typography variant="h6" fontWeight="bold" sx={{ textAlign: "center" }}>Notifications</Typography>
-                                {notifications?.slice(0,notificationCount).map((noti) => {
+                                {notifications?.slice(0,notificationCount).map((noti,index) => {
                                     return (
                                         <Box
+                                            key={index}
                                             sx={{ display: "flex", borderBottom: "1px solid #E4E6EA", p: 2, alignItems: "center", cursor: "pointer", justifyContent: "space-between" }}>
                                             <Box sx={{ display: "flex", flexDirection: "column", minWidth: "95%" }}>
                                                 <Typography>{noti?.message}</Typography>
