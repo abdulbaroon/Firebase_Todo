@@ -10,6 +10,7 @@ import { AuthContext } from "@/context/auth-context";
 import dayjs from "dayjs";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import PushNotification from "./PushNotification";
 
 const TodoList = () => {
     const db = getDatabase(app);
@@ -105,6 +106,8 @@ const TodoRow = ({ todo , indexs }: { todo: Todo , indexs:number}) => {
             .then(() => {
                 console.log("Todo deleted successfully");
                 toast.success("Todo Deleted")
+                PushNotification("Todo Deleted by "+currentUser?.displayName)
+
             })
             .catch((error) => {
                 toast.error("Error" + error?.message)
@@ -119,6 +122,8 @@ const TodoRow = ({ todo , indexs }: { todo: Todo , indexs:number}) => {
             .then(() => {
                 console.log("Todo updated successfully");
                 toast.success("Todo marked as Done");
+                PushNotification("todo Mark as Done by "+currentUser?.displayName)
+
             })
             .catch((error) => {
                 toast.error("Error: " + error?.message);
@@ -138,6 +143,8 @@ const TodoRow = ({ todo , indexs }: { todo: Todo , indexs:number}) => {
             .then(() => {
                 toggleEditMode()
                 toast.success("Todo Updated successfully");
+               PushNotification("todo Updted by "+currentUser?.displayName)
+                
             })
             .catch((error) => {
                 toast.error("Error: " + error?.message);

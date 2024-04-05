@@ -38,7 +38,7 @@ const TodoForm = () => {
             event.currentTarget.reset()
             resetDatePicker();
             toast.success('Todo Created');
-            PushNotification("todo")
+            PushNotification("New todo Created by "+currentUser.displayName)
 
         }
 

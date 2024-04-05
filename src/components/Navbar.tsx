@@ -15,21 +15,44 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { AuthContext } from '@/context/auth-context';
 import Link from 'next/link';
+import { Badge } from '@mui/material';
+import { Notifications } from '@mui/icons-material';
+import { getDatabase, onValue, ref } from 'firebase/database';
+import { app } from '@/config/firebase';
 
 
 function Navbar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+    const [notifications, setNotifications] = React.useState<Notification[]>([]);
     const { currentUser, signOut } = React.useContext(AuthContext)
-    const [navAvtar,setNavAvtar] = React.useState<string >(currentUser?.photoURL || "");
-    const sessionAvtar  = sessionStorage.getItem("avatar")
-    console.log(sessionAvtar,"sd")
-    React.useEffect(()=>{
-        if(sessionAvtar){
+    const [navAvtar, setNavAvtar] = React.useState<string>(currentUser?.photoURL || "");
+    const sessionAvtar = currentUser?.photoURL
+    const db = getDatabase(app)
+    
+    React.useEffect(() => {
+        if (sessionAvtar) {
             setNavAvtar(sessionAvtar)
         }
-    },[sessionAvtar])
+    }, [sessionAvtar])
+
+    React.useEffect(() => { 
+        if(currentUser){
+            const todoRef = ref(db,"/notifications");
+            onValue(todoRef, (snapshot) => {
+                const todos = snapshot.val();
+                const notification:Notification[] = [];
+                for (let id in todos) {
+                    notification.push({ id, ...todos[id] });
+                }
     
+                setNotifications(notification);
+            });
+        }
+    }, [db, currentUser]);
+
+    console.log(notifications)
+
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -37,9 +60,9 @@ function Navbar() {
         setAnchorElUser(event.currentTarget);
     };
     const handleSignOut = () => {
-        signOut(); 
+        signOut();
         sessionStorage.removeItem("user")
-        handleCloseUserMenu(); 
+        handleCloseUserMenu();
     };
 
     const pages = [
@@ -48,8 +71,6 @@ function Navbar() {
 
     const settings = currentUser ? [
         { page: 'Profile', link: '/profile' },
-        { page: 'Account', link: '/account' },
-        { page: 'Dashboard', link: '/dashboard' },
         { page: 'Logout', action: handleSignOut }
     ] : [
         { page: 'Sign In', link: '/Login' },
@@ -63,7 +84,7 @@ function Navbar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
-    
+
 
     return (
         <AppBar position="static">
@@ -156,37 +177,42 @@ function Navbar() {
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt={currentUser?.displayName as string} src={navAvtar as string} />
-                            </IconButton>
-                        </Tooltip>
-                        <Menu
-                            sx={{ mt: '45px' }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            {settings && settings?.map((setting) => (
-                                <MenuItem key={setting.page} onClick={setting.action || handleCloseUserMenu}>
-                                    <Link href={setting.link || "#"}>{setting.page}</Link>
-                                </MenuItem>
-                            ))}
-                        </Menu>
-                    </Box>
-                </Toolbar>
-            </Container>
-        </AppBar>
+                        <IconButton sx={{ p: 0, mr: 4 }} >
+                        <Badge badgeContent={notifications?.length} color="error">
+                            <Notifications sx={{ color: "#FFF" }} />
+                        </Badge>
+                    </IconButton>
+                    <Tooltip title="Open settings">
+                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                            <Avatar alt={currentUser?.displayName as string} src={navAvtar as string} />
+                        </IconButton>
+                    </Tooltip>
+                    <Menu
+                        sx={{ mt: '45px' }}
+                        id="menu-appbar"
+                        anchorEl={anchorElUser}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        open={Boolean(anchorElUser)}
+                        onClose={handleCloseUserMenu}
+                    >
+                        {settings && settings?.map((setting) => (
+                            <MenuItem key={setting.page} onClick={setting.action || handleCloseUserMenu}>
+                                <Link href={setting.link || "#"}>{setting.page}</Link>
+                            </MenuItem>
+                        ))}
+                    </Menu>
+                </Box>
+            </Toolbar>
+        </Container>
+        </AppBar >
     );
 }
 export default Navbar;
