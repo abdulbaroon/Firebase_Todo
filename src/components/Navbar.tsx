@@ -197,8 +197,8 @@ function Navbar() {
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
-                        <IconButton sx={{ p: 0, mr: 4 }} >
-                            <Badge badgeContent={notifications?.length} color="error" onClick={handleOpenNotifications}>
+                        <IconButton sx={{ p: 0, mr: 4 }}  onClick={handleOpenNotifications} >
+                            <Badge badgeContent={notifications?.length} color="error">
                                 <Notifications sx={{ color: "#FFF" }} />
                             </Badge>
                         </IconButton>
