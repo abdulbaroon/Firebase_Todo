@@ -19,34 +19,42 @@ import { Badge } from '@mui/material';
 import { Notifications } from '@mui/icons-material';
 import { getDatabase, onValue, ref } from 'firebase/database';
 import { app } from '@/config/firebase';
+import dayjs from 'dayjs';
 
+interface Notification{
+    message:string
+    current_date:string
+}
 
 function Navbar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const [notifications, setNotifications] = React.useState<Notification[]>([]);
+    const [anchorElNotifications, setAnchorElNotifications] = React.useState<HTMLButtonElement | null>(null);
+    const [notificationOpen, setNotificationOpen] = React.useState(false);
+    const [notificationCount, setNotificationCount] = React.useState(10);
     const { currentUser, signOut } = React.useContext(AuthContext)
     const [navAvtar, setNavAvtar] = React.useState<string>(currentUser?.photoURL || "");
     const sessionAvtar = currentUser?.photoURL
     const db = getDatabase(app)
-    
+
     React.useEffect(() => {
         if (sessionAvtar) {
             setNavAvtar(sessionAvtar)
         }
     }, [sessionAvtar])
 
-    React.useEffect(() => { 
-        if(currentUser){
-            const todoRef = ref(db,"/notifications");
+
+    React.useEffect(() => {
+        if (currentUser) {
+            const todoRef = ref(db, "/notifications");
             onValue(todoRef, (snapshot) => {
                 const todos = snapshot.val();
-                const notification:Notification[] = [];
+                const notification: Notification[] = [];
                 for (let id in todos) {
                     notification.push({ id, ...todos[id] });
                 }
-    
-                setNotifications(notification);
+                 setNotifications(notification.reverse());
             });
         }
     }, [db, currentUser]);
@@ -59,8 +67,8 @@ function Navbar() {
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
     };
-    const handleSignOut = () => {
-        signOut();
+    const handleSignOut = async () => {
+        await signOut();
         sessionStorage.removeItem("user")
         handleCloseUserMenu();
     };
@@ -85,7 +93,19 @@ function Navbar() {
         setAnchorElUser(null);
     };
 
+    const handleOpenNotifications = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorElNotifications(event?.currentTarget);
+        setNotificationOpen((prev) => !prev);
+    };
 
+    const handleCloseNotifications = () => {
+        setAnchorElNotifications(null);
+        setNotificationOpen(false);
+    };
+
+    const loadMoreNofitications =()=>{
+        setNotificationCount((prev)=>prev+8)
+    }
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
@@ -178,40 +198,61 @@ function Navbar() {
 
                     <Box sx={{ flexGrow: 0 }}>
                         <IconButton sx={{ p: 0, mr: 4 }} >
-                        <Badge badgeContent={notifications?.length} color="error">
-                            <Notifications sx={{ color: "#FFF" }} />
-                        </Badge>
-                    </IconButton>
-                    <Tooltip title="Open settings">
-                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                            <Avatar alt={currentUser?.displayName as string} src={navAvtar as string} />
+                            <Badge badgeContent={notifications?.length} color="error" onClick={handleOpenNotifications}>
+                                <Notifications sx={{ color: "#FFF" }} />
+                            </Badge>
                         </IconButton>
-                    </Tooltip>
-                    <Menu
-                        sx={{ mt: '45px' }}
-                        id="menu-appbar"
-                        anchorEl={anchorElUser}
-                        anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                        }}
-                        keepMounted
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                        }}
-                        open={Boolean(anchorElUser)}
-                        onClose={handleCloseUserMenu}
-                    >
-                        {settings && settings?.map((setting) => (
-                            <MenuItem key={setting.page} onClick={setting.action || handleCloseUserMenu}>
-                                <Link href={setting.link || "#"}>{setting.page}</Link>
-                            </MenuItem>
-                        ))}
-                    </Menu>
-                </Box>
-            </Toolbar>
-        </Container>
+                        <Menu open={notificationOpen} anchorEl={anchorElNotifications} onClose={handleCloseNotifications}>
+                            <Box sx={{ mt: 2, height: "50vh", p: 1, display: "flex", flexDirection: "column", maxWidth: "300px", minWidth: "300px", overflowY: "scroll" }}>
+                                <Typography variant="h6" fontWeight="bold" sx={{ textAlign: "center" }}>Notifications</Typography>
+                                {notifications?.slice(0,notificationCount).map((noti) => {
+                                    return (
+                                        <Box
+                                            sx={{ display: "flex", borderBottom: "1px solid #E4E6EA", p: 2, alignItems: "center", cursor: "pointer", justifyContent: "space-between" }}>
+                                            <Box sx={{ display: "flex", flexDirection: "column", minWidth: "95%" }}>
+                                                <Typography>{noti?.message}</Typography>
+                                                <Typography variant="caption">{dayjs(new Date(noti.current_date)).format("LLL").toString()}</Typography>
+                                            </Box>
+                                        </Box>
+                                    )
+                                })}
+                                {notificationCount < notifications.length && (
+                                    <Button sx={{ mt: 2 }} onClick={loadMoreNofitications}>
+                                        Show More
+                                    </Button>
+                                )}
+                            </Box>
+                        </Menu>
+                        <Tooltip title="Open settings">
+                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                <Avatar alt={currentUser?.displayName as string} src={navAvtar as string} />
+                            </IconButton>
+                        </Tooltip>
+                        <Menu
+                            sx={{ mt: '45px' }}
+                            id="menu-appbar"
+                            anchorEl={anchorElUser}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={Boolean(anchorElUser)}
+                            onClose={handleCloseUserMenu}
+                        >
+                            {settings && settings?.map((setting) => (
+                                <MenuItem key={setting.page} onClick={setting.action || handleCloseUserMenu}>
+                                    <Link href={setting.link || "#"}>{setting.page}</Link>
+                                </MenuItem>
+                            ))}
+                        </Menu>
+                    </Box>
+                </Toolbar>
+            </Container>
         </AppBar >
     );
 }

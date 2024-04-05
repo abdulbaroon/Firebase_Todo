@@ -10,7 +10,7 @@ const PushNotification = (message:string) => {
         const notificationRef = ref(db,"/notifications");
         const notification= {
             message:message ,
-            current_date: dayjs(new Date()).format('MM/DD/YYYY')
+            current_date: dayjs(new Date()).toISOString()
 
         }
         push(notificationRef,notification)
