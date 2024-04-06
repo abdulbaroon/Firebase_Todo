@@ -12,8 +12,6 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Email } from '@mui/icons-material';
 import { GithubAuth, GoogleAuth, signUpUser } from '@/config/firebase';
 import { useRouter } from 'next/navigation';
 import { updateProfile } from 'firebase/auth';
@@ -36,18 +34,18 @@ export default function SignIn() {
 
       if (userCredential) {
         updateProfile(userCredential.user, {
-            displayName: name,
-          });
+          displayName: name,
+        });
         navigate.push('/todo');
         toast.success('Account Created');
       }
     } catch (error: any) {
       console.log('Failed to Create Account', error.message)
-      toast.error('Failed to Create Account'+ error.message)
+      toast.error('Failed to Create Account' + error.message)
     }
   };
 
-  const handleGoogle=async()=>{
+  const handleGoogle = async () => {
     try {
       // Send the email and password to firebase
       const userCredential = await GoogleAuth();
@@ -62,7 +60,7 @@ export default function SignIn() {
     }
   }
 
-  const handleGithub=async()=>{
+  const handleGithub = async () => {
     try {
       // Send the email and password to firebase
       const userCredential = await GithubAuth();
@@ -78,95 +76,108 @@ export default function SignIn() {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 8,
+    <div className='bg-custombg bg-cover min-h-screen flex justify-center items-center'>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box sx={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-        }}
-      >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign Up
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-        <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="name"
-            label="Name"
-            name="name"
-            autoComplete="name"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <Box className='flex justify-between w-full mt-3 gap-2'>
-            <Box className="w-1/2 border flex gap-2 p-3  hover:bg-slate-100" 
-            onClick={handleGoogle} >
-              <Image src={Google} alt='he' height={30} width={30}/>
-            <Typography component="h6" variant="h6">
-              Google
-            </Typography>
-            </Box>
-            <Box className="w-1/2 border  flex gap-2 p-3   rounded-md hover:bg-slate-100 "
-            onClick={handleGithub}>
-            <Image src={Github} alt='he' height={30} width={30}/>
-            <Typography component="h6" variant="h6">
-              Github
-            </Typography>
-            </Box>
-          </Box>
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+          border: "1px solid gray",
+          borderRadius: "8px",
+          backdropFilter: "blur(10px)",
+
+        }}>
+          <Box
+            sx={{
+              margin: 3,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+
+            }}
           >
-            Sign Up
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              {/* <Link href="#" variant="body2">
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign Up
+            </Typography>
+            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="name"
+                label="Name"
+                name="name"
+                autoComplete="name"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+              <Box className='flex justify-between w-full mt-3 gap-2'>
+                <Box className="w-1/2 border border-gray-500  flex gap-2 p-3 rounded-md hover:bg-transparent cursor-pointer"
+                  onClick={handleGoogle} >
+                  <Image src={Google} alt='he' height={30} width={30} />
+                  <Typography component="h6" variant="h6">
+                    Google
+                  </Typography>
+                </Box>
+                <Box className="w-1/2 border border-gray-500  flex gap-2 p-3 rounded-md hover:bg-transparent cursor-pointer"
+                  onClick={handleGithub}>
+                  <Image src={Github} alt='he' height={30} width={30} />
+                  <Typography component="h6" variant="h6">
+                    Github
+                  </Typography>
+                </Box>
+              </Box>
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign Up
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  {/* <Link href="#" variant="body2">
                 Forgot password?
               </Link> */}
-            </Grid>
-            <Grid item>
-              <Link href="Login" variant="body2">
-                {"Already have an account? Sign In"}
-              </Link>
-            </Grid>
-          </Grid>
+                </Grid>
+                <Grid item>
+                  <Link href="Login" variant="body2">
+                    {"Already have an account? Sign In"}
+                  </Link>
+                </Grid>
+              </Grid>
+            </Box>
+          </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+    </div>
   );
 }

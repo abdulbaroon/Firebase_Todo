@@ -59,7 +59,6 @@ function Navbar() {
         }
     }, [db, currentUser]);
 
-    console.log(notifications)
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);

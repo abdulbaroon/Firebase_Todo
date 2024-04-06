@@ -12,15 +12,12 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import PushNotification from "./PushNotification";
 
+
 const TodoList = () => {
     const db = getDatabase(app);
     const [todoList, setTodoList] = useState<Todo[]>([]);
     const { currentUser } = useContext(AuthContext)
-    const router = useRouter()
-    const sessionStore=sessionStorage.getItem("user")
-    if(!currentUser && !sessionStore){
-       router.push("/Login")
-    }
+   
 
     useEffect(() => { 
         if(currentUser){

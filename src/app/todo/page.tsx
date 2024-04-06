@@ -2,18 +2,21 @@
 import TodoForm from '@/components/TodoForm'
 import TodoList from '@/components/TodoList'
 import dynamic from 'next/dynamic'
-import { SnackbarProvider } from 'notistack'
-import React from 'react'
 
-const page = () => {
+import { ProtectedRoute } from '../../ProtectedRoute/ProtectedRoute'
+import Layout from '@/layout/Layout'
+
+const todo = () => {
+
   return (
     <>
-     <SnackbarProvider maxSnack={3}>
-    <TodoForm/>
-    <TodoList/>
-    </SnackbarProvider>
+      <ProtectedRoute>
+        <Layout>
+          <TodoForm />
+          <TodoList />
+        </Layout>
+      </ProtectedRoute>
     </>
   )
 }
-
-export default dynamic(() => Promise.resolve(page), { ssr: false })
+export default dynamic(() => Promise.resolve(todo), { ssr: false })

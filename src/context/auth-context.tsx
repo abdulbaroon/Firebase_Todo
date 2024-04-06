@@ -4,6 +4,7 @@ import { createContext, useState, useEffect, ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { SignOutUser, userStateListener } from "@/config/firebase";
 import { toast } from "sonner";
+import { encrypt, getSession, removeSession, setCookie } from "../../lib";
 
   interface Props {
     children?: ReactNode
@@ -23,7 +24,7 @@ import { toast } from "sonner";
     useEffect(() => {
       const unsubscribe = userStateListener((user) => {
         if (user) {
-          setCurrentUser(user)
+         setCurrentUser(user)
          sessionStorage.setItem("avatar",user.photoURL as string)
          sessionStorage.setItem("user","true" )
         }
@@ -42,6 +43,7 @@ import { toast } from "sonner";
     // the user will be redirected to the home page. 
     const signOut = () => {
       SignOutUser()
+      removeSession()
       setCurrentUser(null)
       sessionStorage.removeItem("avatar")
       sessionStorage.removeItem("user")

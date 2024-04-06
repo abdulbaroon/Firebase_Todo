@@ -21,7 +21,6 @@ const TodoForm = () => {
         const formData = new FormData(event.currentTarget);
         const newdate = formData.get("newDate")
         const title = formData.get("title")
-        console.log(newdate, title)
         if (!title || !newdate) {
             toast.error('Fill the all details');
         }

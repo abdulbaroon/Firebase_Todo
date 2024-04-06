@@ -10,7 +10,8 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
-  GithubAuthProvider
+  GithubAuthProvider,
+  sendPasswordResetEmail
 } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { getFirebaseConfig } from './firebase-config';
@@ -41,10 +42,15 @@ const GithubProvider = new GithubAuthProvider();
 export const GoogleAuth=async()=>{
      return await signInWithPopup(auth, GoogleProvider);
 }
+
 export const GithubAuth=async()=>{
   return await signInWithPopup(auth, GithubProvider);
 }
 
+export const ResetPassword=async(email:string)=>{
+
+  return await sendPasswordResetEmail(auth,email)
+}
 
 export const userStateListener = (callback:NextOrObserver<User>) => {
   return onAuthStateChanged(auth, callback)
