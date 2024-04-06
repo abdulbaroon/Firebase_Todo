@@ -48,7 +48,7 @@ import { encrypt, getSession, removeSession, setCookie } from "../../lib";
       sessionStorage.removeItem("avatar")
       sessionStorage.removeItem("user")
       toast.success("User Logout")
-      navigate.push('/')
+      navigate.push('Login')
     }
 
     const value = {
