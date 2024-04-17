@@ -37,15 +37,14 @@ function Navbar() {
     const [notificationCount, setNotificationCount] = React.useState(10);
     const { currentUser, signOut } = React.useContext(AuthContext)
     const [navAvtar, setNavAvtar] = React.useState<string>(currentUser?.photoURL || "");
-    const sessionAvtar = currentUser?.photoURL
     const {user}=useUserStore()
     const db = getDatabase(app)
 
-    React.useEffect(() => {
-        if (sessionAvtar) {
-            setNavAvtar(sessionAvtar)
-        }
-    }, [sessionAvtar])
+    // React.useEffect(() => {
+    //     if (user.avatarUrl ) {
+    //         setNavAvtar(user.avatarUrl)
+    //     }
+    // }, [user])
 
 
     React.useEffect(() => {
