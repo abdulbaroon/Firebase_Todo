@@ -10,6 +10,7 @@ import { toast } from 'sonner'
 import { Users } from '@/types/users'
 import { getDatabase, onValue, ref, set } from 'firebase/database'
 import { app } from '@/config/firebase'
+import {useUserStore } from '@/store/user'
 
 function Profile() {
   const { currentUser } = useContext(AuthContext)
@@ -23,6 +24,7 @@ function Profile() {
   const [address1, setAddress1] = useState<string>('');
   const [address2, setAddress2] = useState<string>('');
   const db = getDatabase(app);
+  const storeUser=useUserStore((state)=>state.storeUsers)   
 
   useEffect(() => {
     const userRef = ref(db, `/users`);
@@ -35,6 +37,7 @@ function Profile() {
       const newUser = newUsers?.find((flr) => flr.uId === currentUser?.uid)
       if (newUser) {
         setUser(newUser)
+        storeUser(newUser)
         setAvatarUrl(newUser.avatarUrl||"")
         setDisplayName(newUser.userName||"")
         setMobileNo(newUser.mobileNo||"")

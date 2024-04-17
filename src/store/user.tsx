@@ -6,7 +6,7 @@ interface TodoStoreState {
     storeUsers: (str: Users) => void;
 }
 
-export const useTodoStore = create<TodoStoreState>((set) => ({
+export const useUserStore = create<TodoStoreState>((set) => ({
     user:"",
     storeUsers: (str) => set({ user: str }),
 }));

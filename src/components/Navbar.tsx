@@ -20,6 +20,7 @@ import { Notifications } from '@mui/icons-material';
 import { getDatabase, onValue, ref } from 'firebase/database';
 import { app } from '@/config/firebase';
 import dayjs from 'dayjs';
+import { useUserStore } from '@/store/user';
 
 interface Notification{
     message:string
@@ -37,6 +38,7 @@ function Navbar() {
     const { currentUser, signOut } = React.useContext(AuthContext)
     const [navAvtar, setNavAvtar] = React.useState<string>(currentUser?.photoURL || "");
     const sessionAvtar = currentUser?.photoURL
+    const {user}=useUserStore()
     const db = getDatabase(app)
 
     React.useEffect(() => {
