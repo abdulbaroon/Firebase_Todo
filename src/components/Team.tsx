@@ -19,7 +19,7 @@ const Team = () => {
         const userRef = ref(db, `/users`);
         onValue(userRef, (snapshot) => {
             const users = snapshot.val();
-            const newUsers: any[] = [];
+            const newUsers: Users[] = [];
             for (let id in users) {
                 newUsers.push({ id, ...users[id] });
             }
