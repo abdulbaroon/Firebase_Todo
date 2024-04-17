@@ -19,18 +19,52 @@ import { toast } from 'sonner';
 import { Github, Google } from '@/components/assets';
 import Image from 'next/image';
 import RegisterUser from '@/utils/RegisterUser';
+import { IconButton, InputAdornment } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export default function SignIn() {
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [showcPassword, setShowcPassword] = React.useState(false);
+
   const navigate = useRouter();
 
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  }; 
+  const handleTogglecPasswordVisibility = () => {
+    setShowcPassword(!showcPassword);
+  }; 
+  
+  
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get('email') as string;
     const password = data.get('password') as string;
     const name = data.get('name') as string;
+    const confirmPassword = data.get('cpassword') as string;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,})/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!name.trim()) {
+      toast.error('Name is required');
+      return;
+    }
+
+    if (!emailRegex.test(email)) {
+      toast.error('Invalid email format');
+      return;
+    }
+
+    if (!passwordRegex.test(password)) {
+      toast.error('Password must contain at least one uppercase letter, one special character, and be at least 8 characters long');
+      return; 
+    }
+    if (password !== confirmPassword) {
+      toast.error('Passwords do not match');
+      return; 
+    }
     try {
-      // Send the email and password to firebase
       const userCredential = await signUpUser(email, password);
 
       if (userCredential) {
@@ -134,9 +168,22 @@ export default function SignIn() {
                 fullWidth
                 name="password"
                 label="Password"
-                type="password"
                 id="password"
-                autoComplete="current-password"
+                type={showPassword ? "text" : "password"}
+                autoComplete="password"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleTogglePasswordVisibility}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
               <TextField
                 margin="normal"
@@ -144,9 +191,22 @@ export default function SignIn() {
                 fullWidth
                 name="cpassword"
                 label="Conform Password"
-                type="cpassword"
                 id="cpassword"
-                autoComplete="comform password"
+                type={showPassword ? "text" : "password"}
+                autoComplete="password"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleTogglecPasswordVisibility}
+                        edge="end"
+                      >
+                        {showcPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
               <Box className='flex justify-between w-full mt-3 gap-2'>
                 <Box className="w-1/2 border border-gray-500  flex gap-2 p-3 rounded-md hover:bg-transparent cursor-pointer"
