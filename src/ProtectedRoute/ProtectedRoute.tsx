@@ -1,12 +1,22 @@
 
 import { AuthContext } from "@/context/auth-context";
 import { useRouter } from "next/navigation";
-import React, { useContext } from "react";
+import  { ReactNode, useContext, useEffect, useState } from "react";
 
-export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+export const ProtectedRoute = ({ children }: { children: ReactNode }) => {
+    const [session,setSession]=useState(false)
     const { currentUser } = useContext(AuthContext)
     const router = useRouter()
-   const  session =sessionStorage.getItem("user")
+    
+    useEffect(() => {
+     const  session =sessionStorage.getItem("user")
+     if(session){
+      setSession(true)
+     }else{
+      setSession(false)
+     }
+  }, []);
+
   const isAuthenticated = currentUser
   console.log(session)
 

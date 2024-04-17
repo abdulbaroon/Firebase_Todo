@@ -2,7 +2,7 @@ import { Users } from '@/types/users';
 import { create } from 'zustand';
 
 interface TodoStoreState {
-    user: Users|string;
+    user: any;
     storeUsers: (str: Users) => void;
 }
 
