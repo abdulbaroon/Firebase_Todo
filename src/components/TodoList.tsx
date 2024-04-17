@@ -11,7 +11,7 @@ import dayjs from "dayjs";
 import { toast } from "sonner";
 import PushNotification from "../utils/PushNotification";
 import { Users } from "@/types/users";
-import { allUsersData } from "@/utils/AllUserData";
+import { allUsersData } from "@/utils/allUserData";
 
 
 const TodoList = () => {
