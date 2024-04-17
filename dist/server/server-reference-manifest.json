@@ -1,0 +1,106 @@
+{
+  "node": {
+    "0235c799ba438092f1e8a1e903331cdd03bfbb57": {
+      "workers": {
+        "app/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/profile/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/Login/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/register/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/todo/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/teams/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/resetPassword/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/page": "action-browser",
+        "app/profile/page": "action-browser",
+        "app/Login/page": "action-browser",
+        "app/register/page": "action-browser",
+        "app/todo/page": "action-browser",
+        "app/teams/page": "action-browser",
+        "app/resetPassword/page": "action-browser"
+      }
+    },
+    "30483f7320b49afcb8188c2c72ff10b340a2735f": {
+      "workers": {
+        "app/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/profile/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/Login/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/register/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/todo/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/teams/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/resetPassword/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/page": "action-browser",
+        "app/profile/page": "action-browser",
+        "app/Login/page": "action-browser",
+        "app/register/page": "action-browser",
+        "app/todo/page": "action-browser",
+        "app/teams/page": "action-browser",
+        "app/resetPassword/page": "action-browser"
+      }
+    },
+    "580d01c27f4b7e917e65402e25ec50834425522e": {
+      "workers": {
+        "app/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/profile/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/Login/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/register/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/todo/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/teams/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/resetPassword/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/page": "action-browser",
+        "app/profile/page": "action-browser",
+        "app/Login/page": "action-browser",
+        "app/register/page": "action-browser",
+        "app/todo/page": "action-browser",
+        "app/teams/page": "action-browser",
+        "app/resetPassword/page": "action-browser"
+      }
+    },
+    "dacca67dcbacdc232d0a6b2559a9cc167bd7d972": {
+      "workers": {
+        "app/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/profile/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/Login/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/register/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/todo/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/teams/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/resetPassword/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/page": "action-browser",
+        "app/profile/page": "action-browser",
+        "app/Login/page": "action-browser",
+        "app/register/page": "action-browser",
+        "app/todo/page": "action-browser",
+        "app/teams/page": "action-browser",
+        "app/resetPassword/page": "action-browser"
+      }
+    },
+    "f3eccb6a99a488338d9bb49f30f5a3f296d6cca8": {
+      "workers": {
+        "app/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/profile/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/Login/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/register/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/todo/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/teams/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!",
+        "app/resetPassword/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Fhp%2FDocuments%2Ffirebase-todo%2Flib.ts%22%2C%5B%22removeSession%22%2C%22encrypt%22%2C%22setCookie%22%2C%22decrypt%22%2C%22getSession%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/page": "action-browser",
+        "app/profile/page": "action-browser",
+        "app/Login/page": "action-browser",
+        "app/register/page": "action-browser",
+        "app/todo/page": "action-browser",
+        "app/teams/page": "action-browser",
+        "app/resetPassword/page": "action-browser"
+      }
+    }
+  },
+  "edge": {},
+  "encryptionKey": "eSytF8TKzL+CXY9XihMnKBNfFmwKwEDQYFvDUDpNUdU="
+}

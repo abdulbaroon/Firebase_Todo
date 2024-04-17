@@ -2,9 +2,10 @@
 import { User } from "firebase/auth";
 import { createContext, useState, useEffect, ReactNode } from "react";
 import { useRouter } from "next/navigation";
-import { SignOutUser, userStateListener } from "@/config/firebase";
+import { SignOutUser, app, userStateListener } from "@/config/firebase";
 import { toast } from "sonner";
 import { encrypt, getSession, removeSession, setCookie } from "../../lib";
+import { getDatabase, onValue, ref } from "firebase/database";
 
   interface Props {
     children?: ReactNode
@@ -20,6 +21,7 @@ import { encrypt, getSession, removeSession, setCookie } from "../../lib";
   export const AuthProvider = ({ children }: Props) => {
     const [currentUser, setCurrentUser] = useState<User | null>(null)
     const navigate = useRouter()
+    const db = getDatabase(app);
 
     useEffect(() => {
       const unsubscribe = userStateListener((user) => {
@@ -36,11 +38,9 @@ import { encrypt, getSession, removeSession, setCookie } from "../../lib";
       return unsubscribe
     }, []);
 
+   
     
     
-
-    // As soon as setting the current user to null, 
-    // the user will be redirected to the home page. 
     const signOut = () => {
       SignOutUser()
       removeSession()

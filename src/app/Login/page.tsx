@@ -17,10 +17,16 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import Image from 'next/image';
 import { Github, Google } from '@/components/assets';
+import { IconButton, InputAdornment } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export default function SignIn() {
+  const [showPassword, setShowPassword] = React.useState(false);
   const navigate = useRouter();
 
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -96,77 +102,90 @@ export default function SignIn() {
 
             }}
           >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1}}>
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
 
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <Box className='flex justify-between w-full mt-3 gap-2'>
-              <Box className="w-1/2 border border-gray-500  flex gap-2 p-3  rounded-md hover:bg-transparent cursor-pointer "
-                onClick={handleGoogle}  >
-                <Image src={Google} alt='he' height={30} width={30} />
-                <Typography component="h6" variant="h6">
-                  Google
-                </Typography>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                id="password"
+                type={showPassword ? "text" : "password"}
+                autoComplete="password"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <Box className='flex justify-between w-full mt-3 gap-2'>
+                <Box className="w-1/2 border border-gray-500  flex gap-2 p-3  rounded-md hover:bg-transparent cursor-pointer "
+                  onClick={handleGoogle}  >
+                  <Image src={Google} alt='he' height={30} width={30} />
+                  <Typography component="h6" variant="h6">
+                    Google
+                  </Typography>
+                </Box>
+                <Box className="w-1/2 border border-gray-500  flex gap-2 p-3 rounded-md hover:bg-transparent cursor-pointer  "
+                  onClick={handleGithub}
+                >
+                  <Image src={Github} alt='he' height={30} width={30} />
+                  <Typography component="h6" variant="h6">
+                    Github
+                  </Typography>
+                </Box>
               </Box>
-              <Box className="w-1/2 border border-gray-500  flex gap-2 p-3 rounded-md hover:bg-transparent cursor-pointer  "
-                onClick={handleGithub}
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
               >
-                <Image src={Github} alt='he' height={30} width={30} />
-                <Typography component="h6" variant="h6">
-                  Github
-                </Typography>
-              </Box>
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link href="forgetPassword" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid >
+                  <Link href="register  " variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
+              </Grid>
             </Box>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="forgetPassword" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid >
-                <Link href="register  " variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
-        </Box>
         </Box>
       </Container>
     </div>

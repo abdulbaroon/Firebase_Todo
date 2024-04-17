@@ -9,30 +9,47 @@ import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import { AuthContext } from "@/context/auth-context";
 import dayjs from "dayjs";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import PushNotification from "./PushNotification";
+import PushNotification from "../utils/PushNotification";
+import { Users } from "@/types/users";
+import { allUsersData } from "@/utils/AllUserData";
 
 
 const TodoList = () => {
     const db = getDatabase(app);
     const [todoList, setTodoList] = useState<Todo[]>([]);
     const { currentUser } = useContext(AuthContext)
-   
+    const [users, setUsers] = useState<Users>();
+
+
+    useEffect(() => {
+        const userRef = ref(db, `/users`);
+        onValue(userRef, (snapshot) => {
+            const users = snapshot.val();
+            const newUsers: any[] = [];
+            for (let id in users) {
+                newUsers.push({ id, ...users[id] });
+            }
+            const newUser=newUsers.find((flr)=>flr.uId===currentUser?.uid)
+            setUsers(newUser);
+        });
+    }, [db, currentUser]);
+    console.log(allUsersData(),"sds")
 
     useEffect(() => { 
         if(currentUser){
-            const todoRef = ref(db, `/todos-${currentUser ? currentUser.uid : ""}`);
+            const todoRef = ref(db, `/todos`);
             onValue(todoRef, (snapshot) => {
                 const todos = snapshot.val();
+                console.log(todos,"sd");
                 const newTodoList: Todo[] = [];
                 for (let id in todos) {
                     newTodoList.push({ id, ...todos[id] });
                 }
-    
-                setTodoList(newTodoList);
+                const newTodoLists=newTodoList?.filter((ftr)=>ftr.uId===currentUser?.uid || (users?.userType==='Admin'))
+                setTodoList(newTodoLists);
             });
         }
-    }, [db, currentUser]);
+    }, [db, currentUser,users]);
 
     return (
         <div className=" m-0 md:m-10">
@@ -98,12 +115,12 @@ const TodoRow = ({ todo , indexs }: { todo: Todo , indexs:number}) => {
     }, [editMode, todo.id]);
 
     function handleDelete() {
-        const todoRef = ref(db, `/todos-${currentUser ? currentUser.uid : ""}/${todo.id}`);
+        const todoRef = ref(db, `/todos/${todo.id}`);
         remove(todoRef)
             .then(() => {
                 console.log("Todo deleted successfully");
                 toast.success("Todo Deleted")
-                PushNotification("Todo Deleted by "+currentUser?.displayName)
+                PushNotification("Todo Deleted by "+currentUser?.displayName,currentUser?.uid)
 
             })
             .catch((error) => {
@@ -113,13 +130,13 @@ const TodoRow = ({ todo , indexs }: { todo: Todo , indexs:number}) => {
     }
 
     function handleDone() {
-        const todoRef = ref(db, `/todos-${currentUser ? currentUser.uid : ""}/${todo.id}`);
+        const todoRef = ref(db, `/todos/${todo.id}`);
         const updatedTodo = { ...todo, done: true };
         set(todoRef, updatedTodo)
             .then(() => {
                 console.log("Todo updated successfully");
                 toast.success("Todo marked as Done");
-                PushNotification("todo Mark as Done by "+currentUser?.displayName)
+                PushNotification("todo Mark as Done by "+currentUser?.displayName,currentUser?.uid)
 
             })
             .catch((error) => {
@@ -129,7 +146,7 @@ const TodoRow = ({ todo , indexs }: { todo: Todo , indexs:number}) => {
     }
 
     function handleUpdate() {
-        const todoRef = ref(db, `/todos-${currentUser ? currentUser.uid : ""}/${todo.id}`);
+        const todoRef = ref(db, `/todos/${todo.id}`);
         const updatedTodo = {
             ...todo,
             title: tittle,
@@ -140,7 +157,7 @@ const TodoRow = ({ todo , indexs }: { todo: Todo , indexs:number}) => {
             .then(() => {
                 toggleEditMode()
                 toast.success("Todo Updated successfully");
-               PushNotification("todo Updted by "+currentUser?.displayName)
+               PushNotification("todo Updted by "+currentUser?.displayName,currentUser?.uid)
                 
             })
             .catch((error) => {

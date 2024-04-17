@@ -18,6 +18,7 @@ import { updateProfile } from 'firebase/auth';
 import { toast } from 'sonner';
 import { Github, Google } from '@/components/assets';
 import Image from 'next/image';
+import RegisterUser from '@/utils/RegisterUser';
 
 export default function SignIn() {
   const navigate = useRouter();
@@ -36,6 +37,7 @@ export default function SignIn() {
         updateProfile(userCredential.user, {
           displayName: name,
         });
+        RegisterUser(userCredential,name)
         navigate.push('/todo');
         toast.success('Account Created');
       }
@@ -51,10 +53,11 @@ export default function SignIn() {
       const userCredential = await GoogleAuth();
 
       if (userCredential) {
+        RegisterUser(userCredential)
         toast.success('SignIn Success');
         navigate.push('/todo');
       }
-    } catch (error: any) {
+    } catch (error:any) {
       toast.error('SignIn failed' + error.message);
       console.log('User Sign In Failed', error.message);
     }
@@ -66,6 +69,7 @@ export default function SignIn() {
       const userCredential = await GithubAuth();
 
       if (userCredential) {
+        RegisterUser(userCredential)
         navigate.push('/todo');
         toast.success('SignIn Success');
       }
@@ -134,6 +138,16 @@ export default function SignIn() {
                 id="password"
                 autoComplete="current-password"
               />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="cpassword"
+                label="Conform Password"
+                type="cpassword"
+                id="cpassword"
+                autoComplete="comform password"
+              />
               <Box className='flex justify-between w-full mt-3 gap-2'>
                 <Box className="w-1/2 border border-gray-500  flex gap-2 p-3 rounded-md hover:bg-transparent cursor-pointer"
                   onClick={handleGoogle} >
@@ -150,10 +164,10 @@ export default function SignIn() {
                   </Typography>
                 </Box>
               </Box>
-              <FormControlLabel
+              {/* <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
-              />
+              /> */}
               <Button
                 type="submit"
                 fullWidth

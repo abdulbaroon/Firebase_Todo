@@ -7,9 +7,8 @@ import { AuthContext } from "@/context/auth-context";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from "dayjs";
-import { enqueueSnackbar } from "notistack";
 import { toast } from "sonner";
-import PushNotification from "./PushNotification";
+import PushNotification from "../utils/PushNotification";
 
 const TodoForm = () => {
     const db = getDatabase(app);
@@ -25,8 +24,9 @@ const TodoForm = () => {
             toast.error('Fill the all details');
         }
         else if (currentUser) {
-            const todoRef = ref(db, `/todos-${currentUser ? currentUser.uid : ""}`);
+            const todoRef = ref(db, `/todos`);
             const todo = {
+                uId:currentUser.uid,
                 title: title,
                 done: false,
                 due_date: newdate,
@@ -37,7 +37,7 @@ const TodoForm = () => {
             event.currentTarget.reset()
             resetDatePicker();
             toast.success('Todo Created');
-            PushNotification("New todo Created by "+currentUser.displayName)
+            PushNotification("New todo Created by "+currentUser.displayName,currentUser.uid)
 
         }
 

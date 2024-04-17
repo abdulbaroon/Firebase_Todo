@@ -11,7 +11,8 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   GithubAuthProvider,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
+  confirmPasswordReset
 } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { getFirebaseConfig } from './firebase-config';
@@ -50,6 +51,14 @@ export const GithubAuth=async()=>{
 export const ResetPassword=async(email:string)=>{
 
   return await sendPasswordResetEmail(auth,email)
+}
+
+export const confirmThePasswordReset = async (
+  oobCode:string, newPassword:string
+) => {
+  if(!oobCode && !newPassword) return;
+  
+  return await confirmPasswordReset(auth, oobCode, newPassword)
 }
 
 export const userStateListener = (callback:NextOrObserver<User>) => {

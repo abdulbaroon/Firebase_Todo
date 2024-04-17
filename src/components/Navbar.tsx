@@ -24,6 +24,7 @@ import dayjs from 'dayjs';
 interface Notification{
     message:string
     current_date:string
+    uId:string
 }
 
 function Navbar() {
@@ -54,7 +55,8 @@ function Navbar() {
                 for (let id in todos) {
                     notification.push({ id, ...todos[id] });
                 }
-                 setNotifications(notification.reverse());
+                const notifications=notification?.filter((ftr=>ftr.uId===currentUser?.uid))
+                 setNotifications(notifications.reverse());
             });
         }
     }, [db, currentUser]);
@@ -74,6 +76,8 @@ function Navbar() {
 
     const pages = [
         { page: 'Todos', link: '/todo' },
+        { page: 'Teams', link: '/teams' },
+
     ];
 
     const settings = currentUser ? [
@@ -204,7 +208,7 @@ function Navbar() {
                         <Menu open={notificationOpen} anchorEl={anchorElNotifications} onClose={handleCloseNotifications}>
                             <Box sx={{ mt: 2, height: "50vh", p: 1, display: "flex", flexDirection: "column", maxWidth: "300px", minWidth: "300px", overflowY: "scroll" }}>
                                 <Typography variant="h6" fontWeight="bold" sx={{ textAlign: "center" }}>Notifications</Typography>
-                                {notifications?.slice(0,notificationCount).map((noti,index) => {
+                                {notifications?.slice(0,notificationCount)?.map((noti,index) => {
                                     return (
                                         <Box
                                             key={index}
