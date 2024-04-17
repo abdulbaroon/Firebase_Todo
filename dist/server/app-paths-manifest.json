@@ -1,8 +1,0 @@
-{
-  "/profile/page": "app/profile/page.js",
-  "/page": "app/page.js",
-  "/Login/page": "app/Login/page.js",
-  "/teams/page": "app/teams/page.js",
-  "/todo/page": "app/todo/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js"
-}
