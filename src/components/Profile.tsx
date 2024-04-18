@@ -17,7 +17,9 @@ function Profile() {
   const storage = getStorage();
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [displayName, setDisplayName] = useState<string>(currentUser?.displayName || '');
+  // const [displayName, setDisplayName] = useState<string>();
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
   const [mobileNo, setMobileNo] = useState<string>('');
   const [status, setStatus] = useState<string>('');
   const [user, setUser] = useState<Users>()
@@ -39,8 +41,9 @@ function Profile() {
         setUser(newUser)
         storeUser(newUser)
         setAvatarUrl(newUser.avatarUrl||"")
-        setDisplayName(newUser.userName||"")
-        setMobileNo(newUser.mobileNo||"")
+        setFirstName(newUser.firstName||"")
+        setLastName(newUser.lastName||"")
+       setMobileNo(newUser.mobileNo||"")
         setAddress1(newUser.address1||"")
         setAddress2(newUser.address2||"")
       }
@@ -49,10 +52,6 @@ function Profile() {
   }, [db, currentUser]);
 
 
-  useEffect(() => {
-    setDisplayName(currentUser?.displayName || "")
-    setAvatarUrl(currentUser?.photoURL || null)
-  }, [currentUser])
 
   const handleFile = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files?.[0]
@@ -89,7 +88,7 @@ function Profile() {
     if (currentUser) {
       try {
         await updateProfile(currentUser!, {
-          displayName: displayName,
+          displayName: firstName +" "+ lastName,
           photoURL: avatarUrl,
         });
         updateMoreInfo()
@@ -104,7 +103,8 @@ function Profile() {
     const updateUser = ref(db, `/users/${user?.id}`);
     const updatedUser = {
       ...user,
-      userName: displayName,
+      firstName: firstName,
+      lastName:lastName,
       avatarUrl: avatarUrl,
       mobileNo: mobileNo,
       userStatus: status,
@@ -135,7 +135,7 @@ function Profile() {
 
   return (
     <div className='flex flex-col items-center mt-3'>
-      <div className='border p-10 flex gap-12'>
+      <div className='border p-10 flex justify-evenly'>
         <div className='flex flex-col justify-center items-center gap-3 '>
           <Badge
             overlap="circular"
@@ -172,20 +172,27 @@ function Profile() {
           </div>
           <Button variant='contained' className='text-xl font-semibold mt-5' onClick={handleUpdate}>Update Profile</Button>
         </div>
-        <div className=' border p-3 rounded-xl flex flex-col gap-3 mt-3'>
+        <div className=' border p-3 rounded-xl flex flex-col gap-3 mt-3 w-5/12'>
           <div className='w-full flex justify-between items-center'>
             <label>Display Name:-</label>
             <input
-              className="border rounded-md p-2 ms-3"
-              value={displayName}
-              onChange={(e) => setDisplayName(e.target.value)}
+              className="border rounded-md p-2 ms-3 w-1/2"
+              placeholder='First Name'
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            <input
+              className="border  rounded-md p-2 ms-3 w-1/2"
+              placeholder='LastName'
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
             />
           </div>
           <div className='w-full flex justify-between items-center'>
             <label>Email:-</label>
             <input
               disabled
-              className="border rounded-md p-2 ms-4"
+              className=" w-full border rounded-md p-2 ms-11"
               value={currentUser?.email as string}
             />
           </div>
@@ -194,13 +201,14 @@ function Profile() {
             <input
               value={mobileNo}
               onChange={(e) => setMobileNo(e.target.value)}
-              className="border rounded-md p-2 ms-4"
+              className=" w-full border rounded-md p-2 ms-5"
+              
             />
           </div>
           <div className='w-full flex justify-between items-center'>
             <label>Status:-</label>
             <select
-              className="border rounded-md p-2 ms-4 w-[68%]"
+              className="border rounded-md p-2 ms-8 w-full "
               value={status}
               onChange={(e) => setStatus(e.target.value)}
             >
